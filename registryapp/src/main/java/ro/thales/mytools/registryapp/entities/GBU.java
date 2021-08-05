@@ -25,4 +25,6 @@ public class GBU {
             orphanRemoval = false
     )
     private List<Team> teamList = new ArrayList<>();
+
+    // incercare de comm
 }
