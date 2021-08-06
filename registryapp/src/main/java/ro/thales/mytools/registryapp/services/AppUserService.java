@@ -1,31 +1,22 @@
 package ro.thales.mytools.registryapp.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import ro.thales.mytools.registryapp.entities.AppUser;
 import ro.thales.mytools.registryapp.repositories.AppUserRepository;
 
-import java.util.List;
-import java.util.Optional;
-
 @Service
-public class AppUserService {
+@AllArgsConstructor
+public class AppUserService implements UserDetailsService {
+
     private final AppUserRepository appUserRepository;
 
-    @Autowired
-    public AppUserService(AppUserRepository appUserRepository) {
-        this.appUserRepository = appUserRepository;
-    }
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-    public List<AppUser> getUsers() {
-        return appUserRepository.findAll();
-    }
+        return appUserRepository.findAppUserByEmail(email).orElseThrow(() -> new UsernameNotFoundException("email " + email + "  not found"));
 
-    public void addAppUser(AppUser appUser){
-        Optional<AppUser> appUserEmail = appUserRepository.findAppUserByEmail(appUser.getEmail());
-        if(appUserEmail.isPresent()){
-            throw new IllegalStateException("email taken");
-        }
-        appUserRepository.save(appUser);
     }
 }
