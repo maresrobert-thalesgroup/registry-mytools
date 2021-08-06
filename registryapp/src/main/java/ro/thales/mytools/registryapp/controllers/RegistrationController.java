@@ -1,10 +1,8 @@
 package ro.thales.mytools.registryapp.controllers;
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import ro.thales.mytools.registryapp.entities.AppUser;
 import ro.thales.mytools.registryapp.entities.RegistrationRequest;
 import ro.thales.mytools.registryapp.services.RegistrationService;
 
@@ -18,5 +16,10 @@ public class RegistrationController {
     @PostMapping
     public String register(@RequestBody RegistrationRequest request){
         return registrationService.register(request);
+    }
+
+    @GetMapping("/test")
+    public String getString(){
+        return "working";
     }
 }
