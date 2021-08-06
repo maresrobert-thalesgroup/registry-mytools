@@ -15,7 +15,7 @@ import ro.thales.mytools.registryapp.services.AppUserService;
 @AllArgsConstructor
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    //comment
+    //comment 2
     private final AppUserService appUserService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     @Override
