@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import ro.thales.mytools.registryapp.entities.AppUser;
 import ro.thales.mytools.registryapp.repositories.AppUserRepository;
 
 @Service
@@ -12,11 +14,25 @@ import ro.thales.mytools.registryapp.repositories.AppUserRepository;
 public class AppUserService implements UserDetailsService {
 
     private final AppUserRepository appUserRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        return appUserRepository.findAppUserByEmail(email).orElseThrow(() -> new UsernameNotFoundException("email " + email + "  not found"));
+        return appUserRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("email " + email + "  not found"));
+    }
 
+    public String signUpUser(AppUser appUser){
+        if(appUserRepository.findByEmail(appUser.getEmail()).isPresent()){
+            throw new IllegalStateException("Email in use");
+        }
+
+        String encodedPassword = bCryptPasswordEncoder.encode(appUser.getPassword());
+
+        appUser.setPassword(encodedPassword);
+
+        appUserRepository.save(appUser);
+
+        return "it works";
     }
 }
