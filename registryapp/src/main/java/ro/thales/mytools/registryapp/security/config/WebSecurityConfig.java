@@ -37,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**")
                 .fullyAuthenticated()
                 .and()
-                .httpBasic();
+                .httpBasic().and().cors();
     }
 
     @Override
