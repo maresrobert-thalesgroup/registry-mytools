@@ -14,7 +14,6 @@ import ro.thales.mytools.registryapp.repositories.AppUserRepository;
 public class AppUserService implements UserDetailsService {
 
     private final AppUserRepository appUserRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -22,17 +21,17 @@ public class AppUserService implements UserDetailsService {
         return appUserRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("email " + email + "  not found"));
     }
 
-    public String signUpUser(AppUser appUser){
-        if(appUserRepository.findByEmail(appUser.getEmail()).isPresent()){
-            throw new IllegalStateException("Email in use");
-        }
-
-        String encodedPassword = bCryptPasswordEncoder.encode(appUser.getPassword());
-
-        appUser.setPassword(encodedPassword);
-
-        appUserRepository.save(appUser);
-
-        return "it works";
-    }
+//    public String signUpUser(AppUser appUser){
+//        if(appUserRepository.findByEmail(appUser.getEmail()).isPresent()){
+//            throw new IllegalStateException("Email in use");
+//        }
+//
+//        String encodedPassword = bCryptPasswordEncoder.encode(appUser.getPassword());
+//
+//        appUser.setPassword(encodedPassword);
+//
+//        appUserRepository.save(appUser);
+//
+//        return "it works";
+//    }
 }

@@ -13,10 +13,10 @@ public class RegistrationController {
 
     private RegistrationService registrationService;
 
-    @PostMapping
-    public String register(@RequestBody RegistrationRequest request){
-        return registrationService.register(request);
-    }
+//    @PostMapping
+//    public String register(@RequestBody RegistrationRequest request){
+//        return registrationService.register(request);
+//    }
 
     @GetMapping("/test")
     public String getString(){
