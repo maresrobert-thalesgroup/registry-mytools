@@ -1,6 +1,8 @@
 package ro.thales.mytools.registryapp.services;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,7 +23,7 @@ public class AppUserService implements UserDetailsService {
         return appUserRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("email " + email + "  not found"));
     }
 
-    public String signUpUser(AppUser appUser){
+    public ResponseEntity<String> signUpUser(AppUser appUser){
         if(appUserRepository.findByEmail(appUser.getEmail()).isPresent()){
             throw new IllegalStateException("Email in use");
         }
@@ -36,6 +38,6 @@ public class AppUserService implements UserDetailsService {
 
         appUserRepository.save(appUser);
 
-        return "it works";
+        return new ResponseEntity<>("it works", HttpStatus.OK);
     }
 }
