@@ -12,18 +12,18 @@ public class RegistrationService {
     private final EmailChecker emailChecker;
     private final AppUserService appUserService;
 
-//    public String register(RegistrationRequest request) {
-//        if(!emailChecker.test(request.getEmail())){
-//            throw new IllegalStateException("Email not valid");
-//        }
-//        return appUserService.signUpUser(
-//                new AppUser(
-//                        request.getEmail(),
-//                        request.getFirstName(),
-//                        request.getLastName(),
-//                        request.getPassword(),
-//                        AppUserRole.ROLE_USER
-//                )
-//        );
-//    }
+    public String register(RegistrationRequest request) {
+        if(!emailChecker.test(request.getEmail())){
+            throw new IllegalStateException("Email not valid");
+        }
+        return appUserService.signUpUser(
+                new AppUser(
+                        request.getEmail(),
+                        request.getFirstName(),
+                        request.getLastName(),
+                        request.getPassword(),
+                        AppUserRole.ROLE_USER
+                )
+        );
+    }
 }
