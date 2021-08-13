@@ -9,6 +9,7 @@ import ro.thales.mytools.registryapp.services.RegistrationService;
 @RestController
 @RequestMapping(path="api/v1/registration")
 @AllArgsConstructor
+@CrossOrigin()
 public class RegistrationController {
 
     private RegistrationService registrationService;
