@@ -16,7 +16,7 @@ public class RegistrationController {
     private RegistrationService registrationService;
 
     @PostMapping
-    public ResponseEntity<String> register(@RequestBody RegistrationRequest request){
+    public ResponseEntity<AppUser> register(@RequestBody RegistrationRequest request){
         return registrationService.register(request);
     }
 

@@ -23,7 +23,7 @@ public class AppUserService implements UserDetailsService {
         return appUserRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("email " + email + "  not found"));
     }
 
-    public ResponseEntity<String> signUpUser(AppUser appUser){
+    public AppUser signUpUser(AppUser appUser){
         if(appUserRepository.findByEmail(appUser.getEmail()).isPresent()){
             throw new IllegalStateException("Email in use");
         }
@@ -36,8 +36,6 @@ public class AppUserService implements UserDetailsService {
         String encodedPassword = bCryptPasswordEncoder.encode(appUser.getPassword());
         appUser.setPassword(encodedPassword);
 
-        appUserRepository.save(appUser);
-
-        return new ResponseEntity<>("it works", HttpStatus.OK);
+        return appUserRepository.save(appUser);
     }
 }

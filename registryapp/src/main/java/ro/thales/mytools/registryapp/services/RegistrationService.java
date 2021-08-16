@@ -13,11 +13,11 @@ public class RegistrationService {
     private final EmailChecker emailChecker;
     private final AppUserService appUserService;
 
-    public ResponseEntity<String> register(RegistrationRequest request) {
-        if(!emailChecker.test(request.getEmail())){
+    public ResponseEntity<AppUser> register(RegistrationRequest request) {
+        if (!emailChecker.test(request.getEmail())) {
             throw new IllegalStateException("Email not valid");
         }
-        return appUserService.signUpUser(
+        AppUser appUser = appUserService.signUpUser(
                 new AppUser(
                         request.getEmail(),
                         request.getFirstName(),
@@ -26,5 +26,6 @@ public class RegistrationService {
                         AppUserRole.ROLE_USER
                 )
         );
+        return ResponseEntity.ok(appUser);
     }
 }
