@@ -3,8 +3,10 @@ package ro.thales.mytools.registryapp.services;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ro.thales.mytools.registryapp.entities.GBU;
+import ro.thales.mytools.registryapp.entities.GBUListResponse;
 import ro.thales.mytools.registryapp.repositories.GBURepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,7 +15,12 @@ import java.util.stream.Collectors;
 public class GBUService {
     private final GBURepository gbuRepository;
 
-    public List<String> getAllGBUs(){
-        return gbuRepository.findAll().stream().map(GBU::getName).collect(Collectors.toList());
+    public List<GBUListResponse> getAllGBUs(){
+        //return gbuRepository.findAll().stream().map(GBU::getName).collect(Collectors.toList());
+        List<GBUListResponse> gbuListResponseList = new ArrayList<>();
+        for(GBU g: gbuRepository.findAll()){
+            gbuListResponseList.add(new GBUListResponse(g.getId(),g.getName()));
+        }
+        return gbuListResponseList;
     }
 }
