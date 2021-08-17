@@ -9,6 +9,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
+import ro.thales.mytools.registryapp.entities.AppUser;
 import ro.thales.mytools.registryapp.entities.JwtRequest;
 import ro.thales.mytools.registryapp.entities.JwtResponse;
 import ro.thales.mytools.registryapp.security.config.JwtTokenUtil;
@@ -36,7 +37,7 @@ public class JwtAuthenticationController {
 
         final String token = jwtTokenUtil.generateToken(userDetails);
 
-        return ResponseEntity.ok(new JwtResponse(token));
+        return ResponseEntity.ok(new JwtResponse(token,userDetails.getAuthorities()));
     }
 
     private void authenticate(String email, String password) throws Exception {
