@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ro.thales.mytools.registryapp.entities.TeamListResponse;
+import ro.thales.mytools.registryapp.responses.TeamListResponse;
 import ro.thales.mytools.registryapp.services.TeamService;
 
 import java.util.List;

@@ -38,6 +38,16 @@ public class AppUser implements UserDetails {
         this.role = role;
     }
 
+    public AppUser(String email, String firstName, String lastName, String password, Boolean hasOfficeIncomeTraining, AppUserRole role, Team team) {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.hasOfficeIncomeTraining = hasOfficeIncomeTraining;
+        this.role = role;
+        this.team = team;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority authority =

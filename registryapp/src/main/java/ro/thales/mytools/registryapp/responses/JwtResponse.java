@@ -1,4 +1,4 @@
-package ro.thales.mytools.registryapp.entities;
+package ro.thales.mytools.registryapp.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

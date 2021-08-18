@@ -9,9 +9,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
-import ro.thales.mytools.registryapp.entities.AppUser;
-import ro.thales.mytools.registryapp.entities.JwtRequest;
-import ro.thales.mytools.registryapp.entities.JwtResponse;
+import ro.thales.mytools.registryapp.requests.JwtRequest;
+import ro.thales.mytools.registryapp.responses.JwtResponse;
 import ro.thales.mytools.registryapp.security.config.JwtTokenUtil;
 
 import java.util.Objects;
