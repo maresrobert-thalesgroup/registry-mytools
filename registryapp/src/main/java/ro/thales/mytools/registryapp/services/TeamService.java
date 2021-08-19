@@ -8,6 +8,7 @@ import ro.thales.mytools.registryapp.repositories.TeamRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -15,11 +16,6 @@ public class TeamService {
     private final TeamRepository teamRepository;
 
     public List<TeamListResponse> getAllTeams(){
-        //return teamRepository.findAll().stream().map(Team::getName).collect(Collectors.toList());
-        List<TeamListResponse> teamListResponses = new ArrayList<>();
-        for(Team t: teamRepository.findAll()){
-            teamListResponses.add(new TeamListResponse(t.getId(),t.getName(),t.getGbu().getId()));
-        }
-        return teamListResponses;
+        return teamRepository.findAll().stream().map(Team::getTeamResponse).collect(Collectors.toList());
     }
 }

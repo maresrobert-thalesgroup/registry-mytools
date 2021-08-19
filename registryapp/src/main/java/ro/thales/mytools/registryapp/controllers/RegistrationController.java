@@ -17,7 +17,8 @@ public class RegistrationController {
 
     @PostMapping
     public ResponseEntity<RegistrationResponse> register(@RequestBody RegistrationRequest request){
-        return registrationService.register(request);
+        //Binding result @Valid
+        return ResponseEntity.ok(registrationService.register(request));
     }
 
     @GetMapping("/test")

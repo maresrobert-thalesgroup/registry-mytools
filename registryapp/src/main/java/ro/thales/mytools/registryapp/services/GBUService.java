@@ -8,6 +8,7 @@ import ro.thales.mytools.registryapp.repositories.GBURepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -15,11 +16,6 @@ public class GBUService {
     private final GBURepository gbuRepository;
 
     public List<GBUListResponse> getAllGBUs(){
-        //return gbuRepository.findAll().stream().map(GBU::getName).collect(Collectors.toList());
-        List<GBUListResponse> gbuListResponseList = new ArrayList<>();
-        for(GBU g: gbuRepository.findAll()){
-            gbuListResponseList.add(new GBUListResponse(g.getId(),g.getName()));
-        }
-        return gbuListResponseList;
+        return gbuRepository.findAll().stream().map(GBU::getGBUResponse).collect(Collectors.toList());
     }
 }

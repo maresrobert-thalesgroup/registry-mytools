@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ro.thales.mytools.registryapp.responses.GBUListResponse;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,5 +28,8 @@ public class GBU {
     )
     private List<Team> teamList = new ArrayList<>();
 
-    // incercare de comm
+    public GBUListResponse getGBUResponse(){
+        return new GBUListResponse(this.getId(),this.getName());
+    }
+
 }

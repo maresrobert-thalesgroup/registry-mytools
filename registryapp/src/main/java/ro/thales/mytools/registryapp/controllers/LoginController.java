@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin()
 public class LoginController {
-    @RequestMapping(path = "/greeting", method = RequestMethod.GET)
+    @GetMapping(path = "/greeting")
     public ResponseEntity<String> onLoginSuccessful(){
         return new ResponseEntity<>("auth success", HttpStatus.OK);
     }

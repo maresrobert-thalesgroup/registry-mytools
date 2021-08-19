@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.NonNull;
+import ro.thales.mytools.registryapp.responses.TeamListResponse;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,4 +32,8 @@ public class Team {
             orphanRemoval = false
     )
     private List<AppUser> members = new ArrayList<>();
+
+    public TeamListResponse getTeamResponse(){
+        return new TeamListResponse(this.getId(),this.getName(),this.getGbu().getId());
+    }
 }
