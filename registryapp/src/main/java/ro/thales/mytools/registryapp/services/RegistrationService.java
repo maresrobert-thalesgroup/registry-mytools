@@ -16,9 +16,17 @@ public class RegistrationService {
     private final TeamRepository teamRepository;
 
     public RegistrationResponse register(RegistrationRequest request) {
+        /*
         if (!emailChecker.test(request.getEmail())) {
             throw new IllegalStateException("Email not valid");
         }
+         */
+
+        if (!teamRepository.findById(request.getTeam()).isPresent()) {
+            throw new IllegalStateException("Team id does not exist");
+        }
+
+
         AppUser appUser = appUserService.signUpUser(
                 //ADD BUILDER INSTEAD
 //                new AppUser(

@@ -28,6 +28,7 @@ public class AppUserService implements UserDetailsService {
             throw new IllegalStateException("Email in use");
         }
 
+
 //        String encodedPassword = passwordEncoder.encode(appUser.getPassword());
 //
 //        appUser.setPassword(encodedPassword);

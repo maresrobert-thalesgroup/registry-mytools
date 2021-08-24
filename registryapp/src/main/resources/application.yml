@@ -14,5 +14,6 @@ spring:
 server:
   error:
     include-message: always
+    include-binding-errors: always
 jwt:
   secret: mytools
