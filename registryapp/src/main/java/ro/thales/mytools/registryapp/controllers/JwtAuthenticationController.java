@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 import ro.thales.mytools.registryapp.requests.JwtRequest;
 import ro.thales.mytools.registryapp.responses.JwtResponse;
-import ro.thales.mytools.registryapp.security.config.JwtTokenUtil;
+import ro.thales.mytools.registryapp.security.JwtTokenUtil;
 
 import java.util.Objects;
 
@@ -28,7 +28,6 @@ public class JwtAuthenticationController {
     @Autowired
     private UserDetailsService jwtInMemoryUserDetailsService;
 
-//    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     @PostMapping(path = "/authenticate")
     public ResponseEntity<?> generateAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
         authenticate(authenticationRequest.getEmail(), authenticationRequest.getPassword());
@@ -37,7 +36,7 @@ public class JwtAuthenticationController {
 
         final String token = jwtTokenUtil.generateToken(userDetails);
 
-        return ResponseEntity.ok(new JwtResponse(token,userDetails.getAuthorities()));
+        return ResponseEntity.ok(new JwtResponse(token, userDetails.getAuthorities()));
     }
 
     private void authenticate(String email, String password) throws Exception {

@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class TeamService {
     private final TeamRepository teamRepository;
 
-    public List<TeamListResponse> getAllTeams(){
+    public List<TeamListResponse> getAllTeams() {
         return teamRepository.findAll().stream().map(Team::getTeamResponse).collect(Collectors.toList());
     }
 }

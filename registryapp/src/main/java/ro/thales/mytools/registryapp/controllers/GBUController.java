@@ -20,7 +20,7 @@ public class GBUController {
     private final GBUService gbuService;
 
     @GetMapping
-    public ResponseEntity<List<GBUListResponse>> getAllGBUs(){
+    public ResponseEntity<List<GBUListResponse>> getAllGBUs() {
         return new ResponseEntity<>(gbuService.getAllGBUs(), HttpStatus.OK);
     }
 }

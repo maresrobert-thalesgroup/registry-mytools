@@ -20,7 +20,7 @@ public class TeamController {
     private final TeamService teamService;
 
     @GetMapping
-    public ResponseEntity<List<TeamListResponse>> getAllTeams(){
+    public ResponseEntity<List<TeamListResponse>> getAllTeams() {
         return new ResponseEntity<>(teamService.getAllTeams(), HttpStatus.OK);
     }
 }

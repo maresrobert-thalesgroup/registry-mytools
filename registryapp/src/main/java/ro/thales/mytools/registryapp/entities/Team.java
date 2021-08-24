@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="Teams")
+@Table(name = "Teams")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -33,7 +33,7 @@ public class Team {
     )
     private List<AppUser> members = new ArrayList<>();
 
-    public TeamListResponse getTeamResponse(){
-        return new TeamListResponse(this.getId(),this.getName(),this.getGbu().getId());
+    public TeamListResponse getTeamResponse() {
+        return new TeamListResponse(this.getId(), this.getName(), this.getGbu().getId());
     }
 }

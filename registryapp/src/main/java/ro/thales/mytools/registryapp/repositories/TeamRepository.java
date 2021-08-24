@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import ro.thales.mytools.registryapp.entities.Team;
 
 @Repository
-public interface TeamRepository extends JpaRepository<Team,Long> {
+public interface TeamRepository extends JpaRepository<Team, Long> {
 
 }

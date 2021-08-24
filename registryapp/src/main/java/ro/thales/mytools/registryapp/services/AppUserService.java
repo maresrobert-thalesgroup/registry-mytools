@@ -23,16 +23,10 @@ public class AppUserService implements UserDetailsService {
         return appUserRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("email " + email + "  not found"));
     }
 
-    public AppUser signUpUser(AppUser appUser){
-        if(appUserRepository.findByEmail(appUser.getEmail()).isPresent()){
+    public AppUser signUpUser(AppUser appUser) {
+        if (appUserRepository.findByEmail(appUser.getEmail()).isPresent()) {
             throw new IllegalStateException("Email in use");
         }
-
-
-//        String encodedPassword = passwordEncoder.encode(appUser.getPassword());
-//
-//        appUser.setPassword(encodedPassword);
-
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = bCryptPasswordEncoder.encode(appUser.getPassword());
         appUser.setPassword(encodedPassword);

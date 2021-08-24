@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @AllArgsConstructor
-@Table(name="GBUs")
+@Table(name = "GBUs")
 @Data
 @Builder
 public class GBU {
@@ -28,8 +28,8 @@ public class GBU {
     )
     private List<Team> teamList = new ArrayList<>();
 
-    public GBUListResponse getGBUResponse(){
-        return new GBUListResponse(this.getId(),this.getName());
+    public GBUListResponse getGBUResponse() {
+        return new GBUListResponse(this.getId(), this.getName());
     }
 
 }

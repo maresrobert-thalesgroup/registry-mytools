@@ -1,4 +1,4 @@
-package ro.thales.mytools.registryapp.security.config;
+package ro.thales.mytools.registryapp.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +15,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.*;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 
 
 @Configuration
@@ -49,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests().antMatchers("/authenticate","/api/v*/registration","/api/v*/team","/api/v*/gbu")
+        http.csrf().disable().authorizeRequests().antMatchers("/authenticate", "/api/v*/registration", "/api/v*/team", "/api/v*/gbu")
                 .permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**")
                 .fullyAuthenticated()

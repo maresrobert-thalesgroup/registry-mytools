@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import ro.thales.mytools.registryapp.entities.GBU;
 
 @Repository
-public interface GBURepository extends JpaRepository<GBU,Long> {
+public interface GBURepository extends JpaRepository<GBU, Long> {
 }

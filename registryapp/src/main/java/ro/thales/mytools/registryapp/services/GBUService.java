@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class GBUService {
     private final GBURepository gbuRepository;
 
-    public List<GBUListResponse> getAllGBUs(){
+    public List<GBUListResponse> getAllGBUs() {
         return gbuRepository.findAll().stream().map(GBU::getGBUResponse).collect(Collectors.toList());
     }
 }

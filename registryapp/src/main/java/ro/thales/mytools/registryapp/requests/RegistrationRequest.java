@@ -26,7 +26,7 @@ public class RegistrationRequest {
     private String email;
 
     @NotNull(message = "Password cannot be null")
-    @Size(min=6, message = "Password at least 6")
+    @Size(min = 6, message = "Password at least 6")
     @Pattern(regexp = "\\A(?!\\s*\\Z).+", message = "Password cannot be whitespaces")
     private String password;
 

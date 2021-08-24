@@ -12,7 +12,7 @@ import ro.thales.mytools.registryapp.services.RegistrationService;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(path="api/v1/registration")
+@RequestMapping(path = "api/v1/registration")
 @AllArgsConstructor
 @CrossOrigin()
 public class RegistrationController {
@@ -39,14 +39,7 @@ public class RegistrationController {
      */
 
     @PostMapping
-    public ResponseEntity<RegistrationResponse> register(@Valid @RequestBody RegistrationRequest request){
-        //System.out.println("First name: |"+request.getFirstName()+"|");
-        //Binding result @Valid
+    public ResponseEntity<RegistrationResponse> register(@Valid @RequestBody RegistrationRequest request) {
         return ResponseEntity.ok(registrationService.register(request));
-    }
-
-    @GetMapping("/test")
-    public String getString(){
-        return "working";
     }
 }
