@@ -1,5 +1,6 @@
 package ro.thales.mytools.registryapp.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,6 +32,7 @@ public class Team {
             cascade = CascadeType.ALL,
             orphanRemoval = false
     )
+    @JsonIgnore
     private List<AppUser> members = new ArrayList<>();
 
     public TeamListResponse getTeamResponse() {
