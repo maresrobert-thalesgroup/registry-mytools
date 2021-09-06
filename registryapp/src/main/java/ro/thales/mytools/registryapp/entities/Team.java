@@ -35,6 +35,8 @@ public class Team {
     @JsonIgnore
     private List<AppUser> members = new ArrayList<>();
 
+
+
     public TeamListResponse getTeamResponse() {
         return new TeamListResponse(this.getId(), this.getName(), this.getGbu().getId());
     }
