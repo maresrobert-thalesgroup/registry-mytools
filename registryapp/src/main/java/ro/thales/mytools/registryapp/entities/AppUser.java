@@ -1,9 +1,11 @@
 package ro.thales.mytools.registryapp.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import ro.thales.mytools.registryapp.responses.SimpleUserResponse;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -31,6 +33,13 @@ public class AppUser implements UserDetails {
     @ManyToOne
     @JoinColumn(name = "team_id")
     private Team team;
+//    @OneToMany(
+//            mappedBy = "app_user",
+//            cascade = CascadeType.ALL,
+//            orphanRemoval = false
+//    )
+//    @JsonIgnore
+//    private List<Booking> bookingList = new ArrayList<>();
 
     public AppUser(String email, String firstName, String lastName, String password, AppUserRole role) {
         this.email = email;
@@ -48,6 +57,10 @@ public class AppUser implements UserDetails {
         this.hasOfficeIncomeTraining = hasOfficeIncomeTraining;
         this.role = role;
         this.team = team;
+    }
+
+    public SimpleUserResponse getSimpleResponse(){
+        return new SimpleUserResponse(this.getId(), this.getEmail());
     }
 
     @Override
