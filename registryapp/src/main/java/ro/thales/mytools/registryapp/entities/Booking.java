@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Range;
 import ro.thales.mytools.registryapp.responses.BookingResponse;
 import ro.thales.mytools.registryapp.responses.SimpleUserResponse;
@@ -32,12 +33,19 @@ public class Booking {
 
     private Date startDate;
     private Date endDate;
-    private String accessFloors;
+
+    @Type(type = "int-array")
+    @Column(
+            name = "accessFloors",
+            columnDefinition = "integer[]"
+    )
+    private int[] accessFloors;
+
     private String kitNeeded;
     @Range(min = 0, max = 2)
     private Integer status;
 
-    public Booking(AppUser requestBy, AppUser requestFor, Date startDate, Date endDate, String accessFloors, String kitNeeded, Integer status) {
+    public Booking(AppUser requestBy, AppUser requestFor, Date startDate, Date endDate, int[] accessFloors, String kitNeeded, Integer status) {
         this.requestBy = requestBy;
         this.requestFor = requestFor;
         this.startDate = startDate;

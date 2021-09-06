@@ -12,7 +12,7 @@ public class BookingRequest {
     private Long request_for_id;
     private Date startDate;
     private Date endDate;
-    private String accessFloors;
+    private int[] accessFloors;
     private String kitNeeded;
     private Integer status;
 }

@@ -1,6 +1,6 @@
 create table bookings (
        id int8 not null,
-        access_floors varchar(255),
+        access_floors integer[],
         end_date timestamp,
         kit_needed varchar(255),
         start_date timestamp,

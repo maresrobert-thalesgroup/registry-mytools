@@ -18,7 +18,7 @@ public class BookingResponse implements Serializable {
     private SimpleUserResponse request_for;
     private Date startDate;
     private Date endDate;
-    private String accessFloors;
+    private int[] accessFloors;
     private String kitNeeded;
     private Integer status;
 }
