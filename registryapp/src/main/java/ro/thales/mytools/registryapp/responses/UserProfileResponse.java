@@ -20,4 +20,5 @@ public class UserProfileResponse implements Serializable {
     private Boolean hasOfficeIncomeTraining;
     private AppUserRole role;
     private Team team;
+    private SimpleUserResponse manager;
 }
