@@ -20,6 +20,7 @@ public class GBU {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+
     @JsonIgnore
     @OneToMany(
             mappedBy = "gbu",
