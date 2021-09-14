@@ -49,6 +49,14 @@ public class BookingService {
         this.bookingRepository.save(booking);
     }
 
+    public List<BookingResponse> getAllBookingAsMan(String email) {
+        return bookingRepository.getAllBookingAsMan(email).get().stream().map(Booking::getBookingResponse).collect(Collectors.toList());
+    }
+
+    public List<BookingResponse> getAllBookingAsUsr(String email) {
+        return bookingRepository.getAllBookingAsUsr(email).get().stream().map(Booking::getBookingResponse).collect(Collectors.toList());
+    }
+
     public Map<String, Boolean> deleteBooking(Long bookingId){
 
         Booking booking = bookingRepository.findById(bookingId)

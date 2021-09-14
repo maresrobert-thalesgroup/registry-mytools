@@ -16,4 +16,15 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
             " AND APP_USER.TEAM_ID =" +
             " (SELECT TEAMS.ID FROM TEAMS JOIN APP_USER ON TEAMS.ID = TEAM_ID WHERE APP_USER.EMAIL = :u_email)", nativeQuery = true)
     Optional<List<Booking>> getAllBookingRequests(@Param("u_email") String email);
+
+    @Query(value = "SELECT BOOKINGS.* FROM BOOKINGS JOIN APP_USER" +
+            " ON REQUEST_BY_ID = APP_USER.ID WHERE APP_USER.TEAM_ID =" +
+            " (SELECT TEAMS.ID FROM TEAMS JOIN APP_USER ON TEAMS.ID = TEAM_ID WHERE APP_USER.EMAIL = :u_email)", nativeQuery = true)
+    Optional<List<Booking>> getAllBookingAsMan(@Param("u_email") String email);
+
+    @Query(value = "SELECT BOOKINGS.* FROM BOOKINGS JOIN APP_USER ON BOOKINGS.REQUEST_BY_ID = APP_USER.ID" +
+            " WHERE APP_USER.EMAIL = :u_email OR BOOKINGS.REQUEST_FOR_ID IN " +
+            "(SELECT APP_USER.ID FROM APP_USER JOIN BOOKINGS " +
+            "ON APP_USER.ID = BOOKINGS.REQUEST_FOR_ID WHERE APP_USER.EMAIL = :u_email)", nativeQuery = true)
+    Optional<List<Booking>> getAllBookingAsUsr(@Param("u_email") String email);
 }
