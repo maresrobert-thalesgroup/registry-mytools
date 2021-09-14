@@ -1,11 +1,9 @@
 package ro.thales.mytools.registryapp.controllers;
 
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.thales.mytools.registryapp.entities.Booking;
-import ro.thales.mytools.registryapp.repositories.AppUserRepository;
 import ro.thales.mytools.registryapp.requests.BookingRequest;
 import ro.thales.mytools.registryapp.requests.EmailRequest;
 import ro.thales.mytools.registryapp.requests.StatusUpdateRequest;
@@ -23,12 +21,22 @@ public class BookingController {
 
     @GetMapping
     public ResponseEntity<List<BookingResponse>> getAllBookings(){
-        return new ResponseEntity<>(bookingService.getAllBookings(), HttpStatus.OK);
+        return ResponseEntity.ok(bookingService.getAllBookings());
+    }
+
+    @PostMapping(path = "/getasman")
+    public ResponseEntity<List<BookingResponse>> getAllBookingAsMan(@RequestBody EmailRequest emailRequest){
+        return ResponseEntity.ok(bookingService.getAllBookingAsMan(emailRequest.getEmail()));
+    }
+
+    @PostMapping(path = "/getasusr")
+    public ResponseEntity<List<BookingResponse>> getAllBookingAsUsr(@RequestBody EmailRequest emailRequest){
+        return ResponseEntity.ok(bookingService.getAllBookingAsUsr(emailRequest.getEmail()));
     }
 
     @PostMapping
     public ResponseEntity<Booking> addBooking(@RequestBody BookingRequest bookingRequest){
-        return new ResponseEntity<>(bookingService.addBooking(bookingRequest),HttpStatus.OK);
+        return ResponseEntity.ok(bookingService.addBooking(bookingRequest));
     }
 
     @PostMapping(path = "/bookingreq")
