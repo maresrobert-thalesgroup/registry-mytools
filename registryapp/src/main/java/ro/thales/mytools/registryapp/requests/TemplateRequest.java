@@ -11,7 +11,6 @@ import java.io.Serializable;
 @Data
 public class TemplateRequest implements Serializable {
 
-    private Long id;
     private Long requestById;
     private Long requestForId;
     private int[] floorAccess;

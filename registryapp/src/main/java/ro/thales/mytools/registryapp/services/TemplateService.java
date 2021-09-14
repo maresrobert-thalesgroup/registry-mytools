@@ -2,6 +2,7 @@ package ro.thales.mytools.registryapp.services;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import ro.thales.mytools.registryapp.ResourceNotFoundException;
 import ro.thales.mytools.registryapp.entities.AppUser;
 import ro.thales.mytools.registryapp.entities.AppUserRole;
 import ro.thales.mytools.registryapp.entities.Team;
@@ -53,7 +54,6 @@ public class TemplateService {
                                                 .requestFor(templateList.get(i).getRequestFor().getEmail())
                                                 .gbu(templateList.get(i).getRequestBy().getTeam().getGbu().getName())
                                                 .team(templateList.get(i).getRequestBy().getTeam().getName())
-                                                .manager(templateList.get(i).getRequestFor().getEmail())
                                                 .floorAccess(templateList.get(i).getFloorAccess())
                                                 .kitRequired(templateList.get(i).getKitRequired())
                                                 .officeIncomeTraining(templateList.get(i).getRequestBy().getHasOfficeIncomeTraining())
@@ -66,5 +66,48 @@ public class TemplateService {
         return templateResponseList;
 
     }
+    public Template updateTemplate(Integer templateId, TemplateRequest templateRequest) {
+
+        Template template = templateRepository.findById(templateId).
+                orElseThrow(() -> new ResourceNotFoundException("Template not found for this id :: " + templateId));
+
+        template.setRequestBy(appUserRepository.findById(templateRequest.getRequestById()).get());
+        template.setRequestFor(appUserRepository.findById(templateRequest.getRequestForId()).get());
+        template.setFloorAccess(templateRequest.getFloorAccess());
+        template.setKitRequired(templateRequest.getKitRequired());
+
+        templateRepository.save(template);
+
+        return template;
+
+    }
+
+    public List<TemplateResponse> getAllTemplatesByUserId(Integer userId) {
+
+        List<Template> templateList = templateRepository.findAllTemplatesByUserId(userId);
+
+        List<TemplateResponse> templateResponseList = new ArrayList<TemplateResponse>();
+
+
+        for(int i=0;i<templateList.size();i++){
+            TemplateResponse templateResponse = TemplateResponse.builder()
+                    .id(templateList.get(i).getId())
+                    .requestBy(templateList.get(i).getRequestBy().getEmail())
+                    .requestFor(templateList.get(i).getRequestFor().getEmail())
+                    .gbu(templateList.get(i).getRequestBy().getTeam().getGbu().getName())
+                    .team(templateList.get(i).getRequestBy().getTeam().getName())
+                    .floorAccess(templateList.get(i).getFloorAccess())
+                    .kitRequired(templateList.get(i).getKitRequired())
+                    .officeIncomeTraining(templateList.get(i).getRequestBy().getHasOfficeIncomeTraining())
+                    .build();
+
+            templateResponseList.add(templateResponse);
+
+        }
+
+        return templateResponseList;
+
+    }
+
 }
 

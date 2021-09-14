@@ -4,15 +4,19 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ro.thales.mytools.registryapp.ResourceNotFoundException;
 import ro.thales.mytools.registryapp.entities.Booking;
+import ro.thales.mytools.registryapp.entities.Template;
 import ro.thales.mytools.registryapp.repositories.AppUserRepository;
 import ro.thales.mytools.registryapp.requests.BookingRequest;
 import ro.thales.mytools.registryapp.requests.EmailRequest;
 import ro.thales.mytools.registryapp.requests.StatusUpdateRequest;
+import ro.thales.mytools.registryapp.requests.TemplateRequest;
 import ro.thales.mytools.registryapp.responses.BookingResponse;
 import ro.thales.mytools.registryapp.services.BookingService;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/api/v1/booking")
@@ -39,5 +43,23 @@ public class BookingController {
     @PutMapping(path = "/update/{booking_id}")
     public void updateStatus(@PathVariable Long booking_id, @RequestBody StatusUpdateRequest statusUpdateRequest){
         this.bookingService.updatestatus(booking_id,statusUpdateRequest.getStatus());
+    }
+
+    @DeleteMapping(path = "/delete/{id}")
+    public Map<String, Boolean> deleteBooking(@PathVariable(value = "id") Long bookingId){
+        return bookingService.deleteBooking(bookingId);
+    }
+
+    @GetMapping(path= "/{id}")
+    public ResponseEntity<BookingResponse> getBookingById(@PathVariable(value = "id") Long bookingId){
+        return ResponseEntity.ok(bookingService.getBookingById(bookingId));
+    }
+
+    @PutMapping(path= "/{id}")
+    public ResponseEntity<Booking> updateBooking(@PathVariable(value = "id") Long bookingId,
+                                                 @RequestBody BookingRequest bookingRequest) throws ResourceNotFoundException {
+
+        Booking updatedBooking = bookingService.updateBooking(bookingId,bookingRequest);
+        return ResponseEntity.ok(updatedBooking);
     }
 }

@@ -1,6 +1,7 @@
 package ro.thales.mytools.registryapp.responses;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ro.thales.mytools.registryapp.entities.AppUserRole;
@@ -12,6 +13,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Builder
 public class UserProfileResponse implements Serializable {
     private Long id;
     private String email;

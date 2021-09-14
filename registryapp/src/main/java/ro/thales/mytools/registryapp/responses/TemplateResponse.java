@@ -18,7 +18,6 @@ public class TemplateResponse implements Serializable {
     private String requestFor;
     private String gbu;
     private String team;
-    private String manager;
     private int[] floorAccess;
     private String kitRequired;
     private boolean officeIncomeTraining;

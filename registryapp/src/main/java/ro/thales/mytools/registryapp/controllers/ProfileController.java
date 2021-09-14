@@ -27,4 +27,10 @@ public class ProfileController {
     public ResponseEntity<List<SimpleUserResponse>> getAllUsersInTeam(@PathVariable Long team_id){
         return ResponseEntity.ok(appUserService.getAllUsersInTeam(team_id));
     }
+
+    @GetMapping(path = "/users")
+        public ResponseEntity<List<UserProfileResponse>> getAllUsers(){
+            return ResponseEntity.ok(appUserService.getAllUsers());
+        }
+
 }

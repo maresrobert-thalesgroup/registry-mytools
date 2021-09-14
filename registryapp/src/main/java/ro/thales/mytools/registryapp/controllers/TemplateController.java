@@ -37,6 +37,12 @@ public class TemplateController {
         return ResponseEntity.ok(templateService.getAllTemplates());
     }
 
+    @GetMapping("/templates/list/{id}")
+    public ResponseEntity<List<TemplateResponse>> getAllTemplatesByUserId(@PathVariable(value = "id")  Integer userId) {
+
+        return ResponseEntity.ok(templateService.getAllTemplatesByUserId(userId));
+    }
+
     @GetMapping("/templates/{id}")
     public ResponseEntity<Template> getTemplateById(@PathVariable(value = "id") Integer templateId)
             throws ResourceNotFoundException {
@@ -47,19 +53,10 @@ public class TemplateController {
 
     @PutMapping("/templates/{id}")
     public ResponseEntity<Template> updateTemplate(@PathVariable(value = "id") Integer templateId,
-                                                   @RequestBody Template templateDetails) throws ResourceNotFoundException {
-        Template template = templateRepository.findById(templateId)
-                .orElseThrow(() -> new ResourceNotFoundException("Template not found for this id :: " + templateId));
+                                                   @RequestBody TemplateRequest templateRequest) throws ResourceNotFoundException {
 
-        //template.setGbu(templateDetails.getGbu());
-        //template.setTeam(templateDetails.getTeam());
-       //template.setManager(templateDetails.getManager());
-       // template.setFloorAccess(templateDetails.getFloorAccess());
-        //template.setKitRequired(templateDetails.isKitRequired());
-        //template.setOfficeIncomeTraining(templateDetails.isOfficeIncomeTraining());
-
-        final Template updatedTemplate = templateRepository.save(template);
-        return ResponseEntity.ok(updatedTemplate);
+        Template updatedTemplate = templateService.updateTemplate(templateId,templateRequest);
+            return ResponseEntity.ok(updatedTemplate);
     }
 
     @DeleteMapping("/templates/{id}")

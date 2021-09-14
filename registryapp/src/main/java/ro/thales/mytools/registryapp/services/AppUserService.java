@@ -14,6 +14,8 @@ import ro.thales.mytools.registryapp.repositories.AppUserRepository;
 import ro.thales.mytools.registryapp.responses.SimpleUserResponse;
 import ro.thales.mytools.registryapp.responses.UserProfileResponse;
 
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,5 +57,26 @@ public class AppUserService implements UserDetailsService {
 
     public List<SimpleUserResponse> getAllUsersInTeam(Long team_id){
         return this.appUserRepository.getAllUsersInTeam(team_id).get().stream().map(AppUser::getSimpleResponse).collect(Collectors.toList());
+    }
+
+    public List<UserProfileResponse> getAllUsers(){
+
+        List<AppUser> appUsers = appUserRepository.findAll();
+        List<UserProfileResponse> userProfileResponses = new ArrayList<UserProfileResponse>();
+
+        for(int i=0;i<appUsers.size();i++){
+            AppUser appUser = appUsers.get(i);
+            UserProfileResponse userProfileResponse = UserProfileResponse.builder()
+                                                    .id(appUser.getId())
+                                                    .email(appUser.getEmail())
+                                                    .firstName(appUser.getFirstName())
+                                                    .lastName(appUser.getLastName())
+                                                    .hasOfficeIncomeTraining(appUser.getHasOfficeIncomeTraining())
+                                                    .role(appUser.getRole())
+                                                    .team(appUser.getTeam())
+                                                    .build();
+            userProfileResponses.add(userProfileResponse);
+        }
+        return userProfileResponses;
     }
 }
