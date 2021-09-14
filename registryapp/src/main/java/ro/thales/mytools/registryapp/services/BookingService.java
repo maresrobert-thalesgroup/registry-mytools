@@ -42,4 +42,12 @@ public class BookingService {
         booking.setStatus(status);
         this.bookingRepository.save(booking);
     }
+
+    public List<BookingResponse> getAllBookingAsMan(String email) {
+        return bookingRepository.getAllBookingAsMan(email).get().stream().map(Booking::getBookingResponse).collect(Collectors.toList());
+    }
+
+    public List<BookingResponse> getAllBookingAsUsr(String email) {
+        return bookingRepository.getAllBookingAsUsr(email).get().stream().map(Booking::getBookingResponse).collect(Collectors.toList());
+    }
 }
