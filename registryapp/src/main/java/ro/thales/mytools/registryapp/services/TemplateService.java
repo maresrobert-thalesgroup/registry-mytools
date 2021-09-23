@@ -27,16 +27,20 @@ public class TemplateService {
 
     public Template addTemplate(TemplateRequest templateRequest) {
 
-    Template template = Template.builder()
-                        .requestBy(appUserRepository.findById(templateRequest.getRequestById()).get())
-                        .requestFor(appUserRepository.findById(templateRequest.getRequestForId()).get())
-                        .floorAccess(templateRequest.getFloorAccess())
-                        .kitRequired(templateRequest.getKitRequired())
-                        .build();
+        Template template = Template.builder()
+                .requestBy(appUserRepository.findById(templateRequest.getRequestById()).get())
+                .requestFor(appUserRepository.findById(templateRequest.getRequestForId()).get())
+                .floorAccess(templateRequest.getFloorAccess())
+                .kitRequired(templateRequest.getKitRequired())
+                .build();
 
-    templateRepository.save(template);
+        List<Template> templateList = templateRepository.findAll();
 
-    return template;
+        template.checkForSimilar(templateList);
+
+        templateRepository.save(template);
+
+        return template;
 
     }
 
@@ -47,17 +51,17 @@ public class TemplateService {
         List<TemplateResponse> templateResponseList = new ArrayList<TemplateResponse>();
 
 
-        for(int i=0;i<templateList.size();i++){
+        for (int i = 0; i < templateList.size(); i++) {
             TemplateResponse templateResponse = TemplateResponse.builder()
-                                                .id(templateList.get(i).getId())
-                                                .requestBy(templateList.get(i).getRequestBy().getEmail())
-                                                .requestFor(templateList.get(i).getRequestFor().getEmail())
-                                                .gbu(templateList.get(i).getRequestBy().getTeam().getGbu().getName())
-                                                .team(templateList.get(i).getRequestBy().getTeam().getName())
-                                                .floorAccess(templateList.get(i).getFloorAccess())
-                                                .kitRequired(templateList.get(i).getKitRequired())
-                                                .officeIncomeTraining(templateList.get(i).getRequestBy().getHasOfficeIncomeTraining())
-                                                .build();
+                    .id(templateList.get(i).getId())
+                    .requestBy(templateList.get(i).getRequestBy().getEmail())
+                    .requestFor(templateList.get(i).getRequestFor().getEmail())
+                    .gbu(templateList.get(i).getRequestBy().getTeam().getGbu().getName())
+                    .team(templateList.get(i).getRequestBy().getTeam().getName())
+                    .floorAccess(templateList.get(i).getFloorAccess())
+                    .kitRequired(templateList.get(i).getKitRequired())
+                    .officeIncomeTraining(templateList.get(i).getRequestBy().getHasOfficeIncomeTraining())
+                    .build();
 
             templateResponseList.add(templateResponse);
 
@@ -66,6 +70,7 @@ public class TemplateService {
         return templateResponseList;
 
     }
+
     public Template updateTemplate(Integer templateId, TemplateRequest templateRequest) {
 
         Template template = templateRepository.findById(templateId).
@@ -75,6 +80,8 @@ public class TemplateService {
         template.setRequestFor(appUserRepository.findById(templateRequest.getRequestForId()).get());
         template.setFloorAccess(templateRequest.getFloorAccess());
         template.setKitRequired(templateRequest.getKitRequired());
+
+        template.checkForSimilar(templateRepository.findAll());
 
         templateRepository.save(template);
 
@@ -89,7 +96,7 @@ public class TemplateService {
         List<TemplateResponse> templateResponseList = new ArrayList<TemplateResponse>();
 
 
-        for(int i=0;i<templateList.size();i++){
+        for (int i = 0; i < templateList.size(); i++) {
             TemplateResponse templateResponse = TemplateResponse.builder()
                     .id(templateList.get(i).getId())
                     .requestBy(templateList.get(i).getRequestBy().getEmail())
