@@ -73,6 +73,15 @@ public class TemplateService {
 
     public Template updateTemplate(Integer templateId, TemplateRequest templateRequest) {
 
+        Template tDummy = Template.builder()
+                .requestBy(appUserRepository.findById(templateRequest.getRequestById()).get())
+                .requestFor(appUserRepository.findById(templateRequest.getRequestForId()).get())
+                .floorAccess(templateRequest.getFloorAccess())
+                .kitRequired(templateRequest.getKitRequired())
+                .build();
+
+        tDummy.checkForSimilar(templateRepository.findAll());
+
         Template template = templateRepository.findById(templateId).
                 orElseThrow(() -> new ResourceNotFoundException("Template not found for this id :: " + templateId));
 
@@ -80,8 +89,6 @@ public class TemplateService {
         template.setRequestFor(appUserRepository.findById(templateRequest.getRequestForId()).get());
         template.setFloorAccess(templateRequest.getFloorAccess());
         template.setKitRequired(templateRequest.getKitRequired());
-
-        template.checkForSimilar(templateRepository.findAll());
 
         templateRepository.save(template);
 
